@@ -7,7 +7,6 @@ const Login = () => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-  
       // Lógica de autenticación aquí
       // ...
   
@@ -16,8 +15,8 @@ const Login = () => {
     };
   return (
     <div>
-      <section>
-  <div className="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen lg:py-0">
+      <section className='flex ml-24'>
+  <div className="flex w-4/5 flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen lg:py-0">
       <div className="w-full rounded-lg shadow  border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
           <div className="p-8">
           <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900  text-white">
@@ -58,9 +57,16 @@ const Login = () => {
                   <p className="text-sm font-light text-gray-400">
                   ¿No tienes una cuenta? <Link to="/register" className="font-medium text-green-500 hover:underline text-primary-500">Registrate</Link>
                   </p>
+                  <p className="text-sm font-light text-gray-400">
+                  Ir al Home <Link to="/home" className="font-medium text-green-500 hover:underline text-primary-500">Click Aca</Link>
+                  </p>
               </form>
           </div>
       </div>
+  </div>
+  <div className='flex items-center'>
+    <h1 className='text-white text-3xl text-center mr-28 font-mono'>Systik Impulsa tu Equipo: Implementa Soluciones, <span className='text-green-500 font-bold animate-pulse'> Eleva Productividad.</span></h1>
+  
   </div>
 </section>
 <div className="area" >
