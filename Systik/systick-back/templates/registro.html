@@ -55,20 +55,18 @@
     <form method="post" action="/registro/">
         <h2>Registro de Usuario</h2>
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-
+        <input type="text" id="nombre" name="nombre_us" required>
+    
         <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" required>
-
+        <input type="text" id="apellido" name="apellido_us" required>
+    
         <label for="correo_us">Email:</label>
         <input type="email" id="correo_us" name="correo_us" required>
-
+    
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-
-        <label for="confirm_password">Confirmar Password:</label>
-        <input type="password" id="confirm_password" name="confirm_password" required>
-
+    
+    
         <label for="cargo">Selecciona un cargo:</label>
         <select name="cargo" id="cargo">
             <option value="gerente_financiero">Gerente financiero</option>
@@ -76,7 +74,7 @@
             <option value="coordinador_contable">Coordinador Contable</option>
             <option value="facturacion_y_cobranza">Facturacion y Cobranza</option>
         </select>
-
+    
         <label for="departamento">Selecciona el departamento:</label>
         <select name="departamento" id="departamento">
             <option value="gerencia">Gerencia</option>
@@ -84,17 +82,18 @@
             <option value="tecnologia">Tecnología</option>
             <option value="recursos_humanos">Recursos Humanos</option>
         </select>
-
+    
         <label for="dir_hogar">Dirección Hogar:</label>
         <input type="text" id="dir_hogar" name="dir_hogar">
-
+    
         <label for="num_telefono">Número de Teléfono:</label>
-        <input type="tel" id="num_telefono" name="num_telefono" pattern="[0-9]{10}">
-
+        <input type="tel" id="num_telefono" name="num_telefono" pattern="[0-9]{11}">
+    
         <label for="fech_nac">Fecha de Nacimiento:</label>
         <input type="date" id="fech_nac" name="fech_nac">
-
+    
         <button type="submit">Registrar</button>
     </form>
+    
 </body>
 </html>

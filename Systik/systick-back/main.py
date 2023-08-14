@@ -18,12 +18,11 @@ db_config = {
 
 class Usuario(BaseModel):
     nombre_us: str
+    apellido_us: str
     correo_us: str
     password: str
     cargo: str
     departamento: str
-    id_rol: int
-    apellido: str
     dir_hogar: Optional[str]
     num_telefono: Optional[str]
     fech_nac: Optional[str]
@@ -35,11 +34,12 @@ async def login_page(request: Request):
 
 #------------------REGISTRO----------------------------------------------
 @app.get('/registro/', response_class=HTMLResponse)
+async def register_page(request: Request):
+    return templates.TemplateResponse("registro.html", {"request": request})
+
 @app.post("/registro/", response_class=HTMLResponse)
-async def register(request: Request, usuario: Usuario):
+async def register(usuario: Usuario, request: Request):
     try:
-        if usuario.password != usuario.confirm_password:
-            raise HTTPException(status_code=400, detail="Las contraseñas no coinciden")
 
         # Conectar a la base de datos
         conn = mysql.connector.connect(**db_config)
@@ -53,8 +53,8 @@ async def register(request: Request, usuario: Usuario):
             raise HTTPException(status_code=400, detail="Correo ya registrado")
 
         # Insertar el nuevo usuario en la base de datos
-        query = "INSERT INTO usuarios (nombre_us, correo_us, password, cargo, departamento, apellido, dir_hogar, fech_nac, num_telefono) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        values = (usuario.nombre, usuario.correo_us, usuario.password, usuario.cargo, usuario.departamento, usuario.apellido, usuario.dir_hogar, usuario.fech_nac, usuario.num_telefono)
+        query = "INSERT INTO usuarios (nombre_us, correo_us, password, cargo, departamento, apellido_us, dir_hogar, fech_nac, num_telefono) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (usuario.nombre_us, usuario.correo_us, usuario.password, usuario.cargo, usuario.departamento, usuario.apellido_us, usuario.dir_hogar, usuario.fech_nac, usuario.num_telefono)
         cursor.execute(query, values)
         conn.commit()
 
