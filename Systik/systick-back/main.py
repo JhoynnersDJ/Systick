@@ -9,13 +9,18 @@ templates = Jinja2Templates(directory="templates")
 
 # Configuración de la base de datos (reemplaza con tu configuración)
 db_config = {
-    "host": "localhost",
+    "host": "Localhost",
     "user": "root",
     "password": "",
     "database": "systick"
 }
+class Roles (BaseModel):
+    id_rol: int
+    nombre_rol: str
+    desc_rol: str
 
 class Usuario(BaseModel):
+    id_us: int
     nombre_us: str
     apelldo_us: str
     correo_us: str
@@ -25,27 +30,29 @@ class Usuario(BaseModel):
     dir_hogar: str = None
     num_telefono: str = None
     fech_nac: str = None
+    rol: Roles #Relacion de roles
 
 @app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
 @app.get('/registro/', response_class=HTMLResponse)
-async def register_page(request: Request):
+async def register_page_get(request: Request):
     return templates.TemplateResponse("registro.html", {"request": request})
 
 @app.post("/registro/", response_class=HTMLResponse)
-async def register_page(
+async def register_page_post(
     nombre_us: str = Form(...),
     apellido_us: str = Form(...),
     correo_us: str = Form(...),
     password: str = Form(...),
-    repeat_password: str = Form(...),  # Agregado
+    repeat_password: str = Form(...),
     cargo: str = Form(...),
     departamento: str = Form(...),
     dir_hogar: str = Form(None),
     num_telefono: str = Form(None),
     fech_nac: str = Form(None),
+    id_rol: int = Form(...),
     request: Request = None
 ):
     if password != repeat_password:  # Validación de contraseñas iguales
@@ -66,8 +73,8 @@ async def register_page(
             raise HTTPException(status_code=400, detail="Correo ya registrado")
 
         # Insertar el nuevo usuario en la base de datos
-        query = "INSERT INTO usuario(nombre_us, correo_us, password, cargo, departamento, apellido_us, dir_hogar, fech_nac, num_telefono) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        values = (nombre_us, correo_us, password, cargo, departamento, apellido_us, dir_hogar, fech_nac, num_telefono)
+        query = "INSERT INTO usuario(id_us, nombre_us, correo_us, password, cargo, departamento, apellido_us, dir_hogar, fech_nac, num_telefono, id_rol) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s)"
+        values = (id_us, nombre_us, correo_us, password, cargo, departamento, apellido_us, dir_hogar, fech_nac, num_telefono, id_rol)
         cursor.execute(query, values)
         conn.commit()
 
