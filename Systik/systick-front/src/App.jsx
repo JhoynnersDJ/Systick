@@ -1,33 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Login from './components/Login';
-import Home from './components/Home/Home.jsx';
-import Register from './components/Register'; // Agrega la importación del componente de registro
-import Preloader from './components/Preloader'; // Agrega la importación del componente de preloader
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+//Layouts
+import LayoutAdmin from "./layouts/LayoutAdmin";
+import LayoutAuth from "./layouts/LayoutAuth";
+
+//Pages Auth
+
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+
+//Pages Admin
+import Error404 from "./pages/Error404";
+import Home from "./pages/admin/Home";
+import Ticket from "./pages/admin/Ticket";
 
 function App() {
-  //Preloader
-  const [isLoading, setIsLoading] = useState(true);
-  // Simulación de carga (para demostración)
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false); // Cambiar a 'false' para mostrar el contenido principal después de la carga
-    }, 2000); // Simulación de una carga de 2 segundos
-  }, []);
-
-  if (isLoading) {
-    return <Preloader />;
-  }
-
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Navigate to="/login" />} />
+        {/* Rutas Auth */}
+        <Route path="/auth" element={<LayoutAuth />}>
+          <Route index element={<Login />} />
+          <Route path="registro" element={<Register />} />
+        </Route>
+
+        {/* Rutas Dashboard Admin */}
+        <Route path="/" element={<LayoutAdmin />}>
+          <Route index element={<Home />} />
+          <Route path="ticket" element={<Ticket />} />
+        </Route>
+
+        {/* Rutas Globales */}
+        <Route path="*" element={<Error404 />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 

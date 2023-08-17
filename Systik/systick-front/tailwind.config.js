@@ -3,11 +3,25 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
-    extend: {},
-  },
-  plugins: [('flowbite/plugin')],
-}
+    extend: {
+      colors: {
+        primary: {
+          100: "#22c55e",
+          200: "#16A34A",
+        },
+        secondary:{
+          100: "#1E1F25",
+          900: "#131517",
+        },
+        terciary:{
+          100: "#646464",
+          200: "#131532",
+        }
 
+      }
+    },
+  },
+  plugins: [],
+}
