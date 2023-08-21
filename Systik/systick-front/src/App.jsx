@@ -5,9 +5,9 @@ import LayoutAdmin from "./layouts/LayoutAdmin";
 import LayoutAuth from "./layouts/LayoutAuth";
 
 //Pages Auth
-
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import OlvideContraseña from "./pages/auth/OlvideContraseña";
 
 //Pages Admin
 import Error404 from "./pages/Error404";
@@ -22,6 +22,7 @@ function App() {
         <Route path="/auth" element={<LayoutAuth />}>
           <Route index element={<Login />} />
           <Route path="registro" element={<Register />} />
+          <Route path="olvide-contraseña" element={<OlvideContraseña />} />
         </Route>
 
         {/* Rutas Dashboard Admin */}
