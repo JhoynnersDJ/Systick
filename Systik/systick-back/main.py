@@ -19,8 +19,7 @@ class Roles (BaseModel):
     nombre_rol: str
     desc_rol: str
 
-class Usuario(BaseModel):
-    id_us: int
+class Usuarios(BaseModel):
     nombre_us: str
     apelldo_us: str
     correo_us: str
@@ -66,15 +65,15 @@ async def register_page_post(
         cursor = conn.cursor()
 
         # Verificar si el correo ya está registrado
-        query = "SELECT * FROM usuario WHERE correo_us = %s"
+        query = "SELECT * FROM usuarios WHERE correo_us = %s"
         cursor.execute(query, (correo_us,))
         existing_usuario = cursor.fetchone()
         if existing_usuario:
             raise HTTPException(status_code=400, detail="Correo ya registrado")
 
         # Insertar el nuevo usuario en la base de datos
-        query = "INSERT INTO usuario(id_us, nombre_us, correo_us, password, cargo, departamento, apellido_us, dir_hogar, fech_nac, num_telefono, id_rol) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s,%s)"
-        values = (id_us, nombre_us, correo_us, password, cargo, departamento, apellido_us, dir_hogar, fech_nac, num_telefono, id_rol)
+        query = "INSERT INTO usuarios(nombre_us, correo_us, password, cargo, departamento, apellido_us, dir_hogar, fech_nac, num_telefono, id_rol) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (nombre_us, correo_us, password, cargo, departamento, apellido_us, dir_hogar, fech_nac, num_telefono, id_rol)
         cursor.execute(query, values)
         conn.commit()
 
