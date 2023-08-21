@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-08-2023 a las 17:10:32
+-- Tiempo de generación: 18-08-2023 a las 16:55:04
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -62,6 +62,17 @@ CREATE TABLE `categoria` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `colaborador`
+--
+
+CREATE TABLE `colaborador` (
+  `id_col` int(11) NOT NULL,
+  `id_tec` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `comentarios`
 --
 
@@ -103,7 +114,8 @@ CREATE TABLE `incidencias` (
   `fech_fin` datetime NOT NULL,
   `id_us_reportador` int(11) NOT NULL,
   `id_us_asignado` int(11) NOT NULL,
-  `id_cat` int(11) NOT NULL
+  `id_cat` int(11) NOT NULL,
+  `id_col` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -189,6 +201,13 @@ ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id_cat`);
 
 --
+-- Indices de la tabla `colaborador`
+--
+ALTER TABLE `colaborador`
+  ADD PRIMARY KEY (`id_col`),
+  ADD KEY `id_tec` (`id_tec`);
+
+--
 -- Indices de la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
@@ -210,7 +229,8 @@ ALTER TABLE `incidencias`
   ADD PRIMARY KEY (`id_inc`),
   ADD KEY `id_us_asignado` (`id_us_asignado`),
   ADD KEY `id_us_reportador` (`id_us_reportador`),
-  ADD KEY `id_cat` (`id_cat`);
+  ADD KEY `id_cat` (`id_cat`),
+  ADD KEY `id_col` (`id_col`);
 
 --
 -- Indices de la tabla `requerimiento`
@@ -247,6 +267,12 @@ ALTER TABLE `archivos`
 --
 ALTER TABLE `categoria`
   MODIFY `id_cat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+
+--
+-- AUTO_INCREMENT de la tabla `colaborador`
+--
+ALTER TABLE `colaborador`
+  MODIFY `id_col` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `comentarios`
@@ -302,6 +328,12 @@ ALTER TABLE `asignaciones`
   ADD CONSTRAINT `asignaciones_ibfk_2` FOREIGN KEY (`id_tecnico`) REFERENCES `usuarios` (`id_us`);
 
 --
+-- Filtros para la tabla `colaborador`
+--
+ALTER TABLE `colaborador`
+  ADD CONSTRAINT `colaborador_ibfk_1` FOREIGN KEY (`id_tec`) REFERENCES `usuarios` (`id_us`);
+
+--
 -- Filtros para la tabla `comentarios`
 --
 ALTER TABLE `comentarios`
@@ -320,7 +352,8 @@ ALTER TABLE `historial`
 ALTER TABLE `incidencias`
   ADD CONSTRAINT `incidencias_ibfk_1` FOREIGN KEY (`id_us_asignado`) REFERENCES `usuarios` (`id_us`),
   ADD CONSTRAINT `incidencias_ibfk_2` FOREIGN KEY (`id_us_reportador`) REFERENCES `usuarios` (`id_us`),
-  ADD CONSTRAINT `incidencias_ibfk_3` FOREIGN KEY (`id_cat`) REFERENCES `categoria` (`id_cat`);
+  ADD CONSTRAINT `incidencias_ibfk_3` FOREIGN KEY (`id_cat`) REFERENCES `categoria` (`id_cat`),
+  ADD CONSTRAINT `incidencias_ibfk_4` FOREIGN KEY (`id_col`) REFERENCES `colaborador` (`id_col`);
 
 --
 -- Filtros para la tabla `requerimiento`
