@@ -18,14 +18,24 @@ class Roles (BaseModel):
     id_rol: int
     nombre_rol: str
     desc_rol: str
+    
+class Departamento (BaseModel):
+    id_depa: int
+    nombre_depa: str
+    desc_depa: str
+
+class Cargo (BaseModel):
+    id_cargo: int
+    nombre_cargo: str
+    desc_cargo: str
 
 class Usuarios(BaseModel):
     nombre_us: str
     apelldo_us: str
     correo_us: str
     password: str
-    cargo: str
-    departamento: str
+    cargo: Cargo #Relacion de cargo
+    depa: Departamento #Relacion de departamento
     dir_hogar: str = None
     num_telefono: str = None
     fech_nac: str = None
@@ -46,12 +56,9 @@ async def register_page_post(
     correo_us: str = Form(...),
     password: str = Form(...),
     repeat_password: str = Form(...),
-    cargo: str = Form(...),
-    departamento: str = Form(...),
     dir_hogar: str = Form(None),
     num_telefono: str = Form(None),
     fech_nac: str = Form(None),
-    id_rol: int = Form(...),
     request: Request = None
 ):
     if password != repeat_password:  # Validación de contraseñas iguales
@@ -72,8 +79,8 @@ async def register_page_post(
             raise HTTPException(status_code=400, detail="Correo ya registrado")
 
         # Insertar el nuevo usuario en la base de datos
-        query = "INSERT INTO usuarios(nombre_us, correo_us, password, cargo, departamento, apellido_us, dir_hogar, fech_nac, num_telefono, id_rol) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-        values = (nombre_us, correo_us, password, cargo, departamento, apellido_us, dir_hogar, fech_nac, num_telefono, id_rol)
+        query = "INSERT INTO usuarios(nombre_us, correo_us, password, id_cargo, id_depa, apellido_us, dir_hogar, fech_nac, num_telefono, id_rol) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        values = (nombre_us, correo_us, password, 1, 1, apellido_us, dir_hogar, fech_nac, num_telefono, 4)
         cursor.execute(query, values)
         conn.commit()
 
