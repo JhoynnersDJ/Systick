@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label, input, select {
+            display: block;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        input, select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="/registro/">
+        <h2>Registro de Usuario</h2>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre_us" required>
+    
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido_us" required>
+    
+        <label for="correo_us">Email:</label>
+        <input type="email" id="correo_us" name="correo_us" required>
+    
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <label for="repeat_password">Repite nuevamente:</label>
+        <input type="password" id="repeat_password" name="repeat_password" required>
+    
+        <label for="dir_hogar">Dirección Hogar:</label>
+        <input type="text" id="dir_hogar" name="dir_hogar">
+    
+        <label for="num_telefono">Número de Teléfono:</label>
+        <input type="tel" id="num_telefono" name="num_telefono" pattern="[0-9]{11}">
+    
+        <label for="fech_nac">Fecha de Nacimiento:</label>
+        <input type="date" id="fech_nac" name="fech_nac">
+    
+        <button type="submit">Registrar</button>
+    </form>
+    
+</body>
+</html>
